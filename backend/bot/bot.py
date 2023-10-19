@@ -17,3 +17,8 @@ async def main():
 
 """COMMAND HANDLERS"""
 
+
+@bot.message_handler(commands=['start'])
+async def start(message):
+    await bot.send_message(message.chat.id, messages.start_message)
+
