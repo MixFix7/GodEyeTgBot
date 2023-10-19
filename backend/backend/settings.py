@@ -37,13 +37,6 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-PROJECT_APPS = [
-    'bot',
-    'data'
-]
-
-LIB_DEPENDENTS = []
-
 INSTALLED_APPS = [
 
     # Django dependents
@@ -53,10 +46,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    PROJECT_APPS,
-    LIB_DEPENDENTS,
-]
 
+    'bot',
+    'data',
+    'management',
+]
 
 
 MIDDLEWARE = [
@@ -94,9 +88,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': env.str('DATABASE_ENGINE'),
+        'NAME': env.str('DATABASE_NAME'),
+        'USER': env.str('DATABASE_USER'),
+        'PASSWORD': env.str('DATABASE_PASSWORD'),
+        'HOST': env.str('DATABASE_HOST'),
+        'PORT': env.str('DATABASE_PORT'),
     }
 }
 
@@ -139,5 +137,7 @@ STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+BOT_TOKEN = env.str('BOT_TOKEN')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
