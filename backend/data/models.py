@@ -14,7 +14,7 @@ class PersonData(models.Model):
 
 
 class SocialData(models.Model):
-    person = models.ForeignKey(PersonData, related_name='social_of_person', on_delete=models.CASCADE)
+    person = models.ForeignKey(PersonData, related_name='social_data', on_delete=models.CASCADE)
 
     instagram = models.CharField(max_length=256, null=True, blank=True)
     facebook = models.CharField(max_length=256, null=True, blank=True)
