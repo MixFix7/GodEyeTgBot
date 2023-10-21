@@ -51,14 +51,16 @@ async def find_person(message):
 
     if persons_data:
         for person in persons_data:
-            person_data = f"*** DATA OF {person['name']} ***"
+            person_data = f"<b> --- DATA OF {person['name']} --- </b>"
+            person_data += "\n"
             for field, value in person.items():
                 if field != 'social_data':
                     person_data += f"\n{field}: {value}"
             else:
                 person_data += "\n"
             if 'social_data' in person and person['social_data']:
-                social_data = f"\n*** SOCIAL DATA OF {person['name']} ***"
+                social_data = f"<b> --- SOCIAL --- </b>"
+                person_data += "\n"
                 for social_field, social_value in person['social_data'][0].items():
                     social_data += f"\n{social_field}: {social_value}"
                 person_data += social_data

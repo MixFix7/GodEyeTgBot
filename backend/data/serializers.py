@@ -5,13 +5,20 @@ from .models import *
 class SocialDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialData
-        fields = '__all__'
+        fields = [
+            'instagram', 'facebook',
+            'tiktok', 'paypal',
+            'twitter', 'snapchat',
+        ]
 
 
 class PersonDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = PersonData
-        fields = '__all__'
+        fields = [
+            'name', 'phone_number', 'ip',
+            'organization', 'location', 'city', 'emails',
+        ]
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
