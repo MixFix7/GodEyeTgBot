@@ -42,9 +42,14 @@ async def unknown_command(message):
 async def find_person(message):
     text_lines = message.text.split('\n')
     data = {}
-    for line in text_lines:
-        key, value = line.split(' - ')
-        data[key] = value
+
+    try:
+        for line in text_lines:
+            key, value = line.split(' - ')
+            data[key] = value
+    except:
+        await bot.send_message(message.chat.id, messages.please_send_valid_form_message)
+        return
 
     response = requests.post(f"{server_url}/data/find-person/", data=data)
     persons_data = response.json()
@@ -55,14 +60,16 @@ async def find_person(message):
             person_data += "\n"
             for field, value in person.items():
                 if field != 'social_data':
-                    person_data += f"\n{field}: {value}"
+                    f_field = field.replace('_', ' ').capitalize()
+                    person_data += f"\n{f_field}: {value}"
             else:
                 person_data += "\n"
             if 'social_data' in person and person['social_data']:
                 social_data = f"<b> --- SOCIAL --- </b>"
                 person_data += "\n"
-                for social_field, social_value in person['social_data'][0].items():
-                    social_data += f"\n{social_field}: {social_value}"
+                for field, value in person['social_data'][0].items():
+                    f_field = field.replace('_', ' ').capitalize()
+                    social_data += f"\n{f_field}: {value}"
                 person_data += social_data
             await bot.send_message(message.chat.id, person_data)
 

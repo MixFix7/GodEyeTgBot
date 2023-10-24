@@ -22,3 +22,7 @@ unknown_command_message = """
 nothing_found_message = """
     <b>Sorry, nothing not found, please try again</b>
 """
+
+please_send_valid_form_message = """
+    <b>Please, send a valid form of person</b>
+"""

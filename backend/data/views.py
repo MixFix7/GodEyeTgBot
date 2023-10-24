@@ -21,7 +21,7 @@ class AddPersonsData(APIView):
                 location = person_data.get('location')
                 city = person_data.get('city')
                 emails = person_data.get('emails')
-                social_data = person_data.get('social_data')[0]
+                social_data = person_data.get('social_data')
                 # Створіть об'єкт PersonData і збережіть його
                 person_instance = models.PersonData(
                     name=name,
@@ -73,7 +73,6 @@ class FindPerson(APIView):
             'city', 'emails'
         ]
 
-
         # Перебираємо всі ключі, що прийшли в запиті
         for field, value in data.items():
             if field in valid_fields:
@@ -81,6 +80,9 @@ class FindPerson(APIView):
                     filter_conditions &= Q(**{f'{field}__icontains': value})
                 else:
                     filter_conditions &= Q(**{field: value})
+
+        if not filter_conditions:
+            return Response({})
 
         results = models.PersonData.objects.filter(filter_conditions)
         result_json = serializers.PersonDataSerializer(results, many=True)

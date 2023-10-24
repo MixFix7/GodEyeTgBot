@@ -12,6 +12,9 @@ class PersonData(models.Model):
     city = models.CharField(max_length=500, null=True, blank=True)
     emails = ArrayField(models.CharField(max_length=256), null=True, blank=True)
 
+    def __str__(self):
+        return f"Data of person: {self.name}"
+
 
 class SocialData(models.Model):
     person = models.ForeignKey(PersonData, related_name='social_data', on_delete=models.CASCADE)
@@ -22,3 +25,7 @@ class SocialData(models.Model):
     paypal = models.CharField(null=True, blank=True)
     twitter = models.URLField(max_length=256, null=True, blank=True)
     snapchat = models.CharField(max_length=256, null=True, blank=True)
+
+    def __str__(self):
+        return f"Social data of person: {self.person.name}"
+
